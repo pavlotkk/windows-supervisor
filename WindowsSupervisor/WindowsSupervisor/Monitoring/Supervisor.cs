@@ -128,10 +128,12 @@ namespace WindowsSupervisor.Monitoring
                 string stderrx = this._process.StandardError.ReadToEnd();
                 this._process.WaitForExit();
 
-                Console.WriteLine(
-                    "Application Failed: \nExit code : {0}\nStderr : {1}\n=======",
-                    this._process.ExitCode,
-                    stderrx
+                this.LogError(
+                    String.Format(
+                        "Application Failed: \nExit code : {0}\nStderr : {1}\n=======",
+                        this._process.ExitCode,
+                        stderrx
+                     )
                 );
 
                 if (this._watchableInfo.AutoRestart)
@@ -224,7 +226,6 @@ namespace WindowsSupervisor.Monitoring
                 try
                 {
                     this._thread.Join(1000);
-                    this._thread = null;
                 }
                 finally
                 {
